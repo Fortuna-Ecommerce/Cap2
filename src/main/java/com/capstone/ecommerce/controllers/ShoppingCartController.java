@@ -6,7 +6,6 @@ import com.capstone.ecommerce.repositories.ProductRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class ShoppingCartController {
         }
 
         if(this.productRepo.getOne((long)id).getQuantity() < (long)quantity){
-            error = "You can't order that many, sorry! Check inventory above and try again!";
+            error = "You can't order that many, sorry! Try a lower number please!";
             redir.addFlashAttribute("error", error);
             model.addAttribute("product", this.productRepo.getOne((long)id));
             model.addAttribute("products", products);

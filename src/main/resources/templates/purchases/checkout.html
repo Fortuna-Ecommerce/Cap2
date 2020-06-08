@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="partials :: head" /></div>
+<head>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <title></title></head>
 
 <body>
 <nav th:replace="partials :: navbar" />
@@ -230,5 +234,6 @@
 <!--</form>-->
 
 <footer th:replace="partials :: footer" />
+<footer><script th:src="@{/js/custom.js}"></script></footer>
 </body>
 </html>

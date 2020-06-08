@@ -2,8 +2,7 @@ package com.capstone.ecommerce.model;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
 
 public class ShoppingCart extends ArrayList<Product> {
 

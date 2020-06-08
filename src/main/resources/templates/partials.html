@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!--    <link th:href='@{http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900}' rel='stylesheet' type='text/css'>-->
+<!--    <link rel="icon" th:href="@{/images/favicon.png}">-->
+<!--    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"/>-->
+<!--    <link th:href="@{/css/app-blue.css}" rel="stylesheet" type="text/css"/>-->
+<!--    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>-->
+
+<!--    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/css/style.css}" rel="stylesheet">-->
+
     <title th:text="${pageTitle}"></title>
-    <script src="https://js.stripe.com/v3/"></script>
+
     <!-- include stylesheets, etc here -->
 </head>
 <body>
@@ -18,40 +29,43 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/products/all">Collection</a>
+                <a class="nav-link" href="/products/all">All Products</a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="/products/t-shirts">T-Shirts</a>-->
-<!--            </li>-->
             <li class="nav-item">
-
+                <a class="nav-link" href="/products/t-shirts">T-Shirts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products/hoodies">Hoodies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products/hats">Hats</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/users/profile">Profile</a>
-
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/products/productInventory">Inventory page</a>
             </li>
             <form method="post" action="/products/search" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
                        name="keyword">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text bg-light" style="border: none">
-                            <input type="radio" name="choice" value="name" checked>
-                            <span class="ml-1">Name Search</span>
-                        </div>
-                        <div class="input-group-text bg-light" style="border:none">
-                            <input type="radio" name="choice" value="category">
-                            <span class="ml-1">Category Search</span>
-                        </div>
-                    </div>
-                </div>
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+<!--                <div class="dropdown">-->
+<!--                    <button class="btn btn-secondary dropdown-toggle ml-2" type="button" id="dropdownMenuButton"-->
+<!--                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Category select-->
+<!--                    </button>-->
+<!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Mad'}">Mad</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Froggy'}">Froggy</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Funny'}">Funny</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Sad'}">Sad</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Scary'}">Scary</a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </form>
         </ul>
 
-<!--            <div class="navbar navbar-right">-->
+        <!--            <div class="navbar navbar-right">-->
         <ul class="navbar-nav">
+
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <form th:action="@{/cart}" th:method="get">
                     <button class="btn-link btn text-white btn-secondary">Go to cart</button>
@@ -79,7 +93,7 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form> -->
 
-    </ul>
+        </ul>
     </ul>
 </nav>
 <!--                <ul class="navbar-nav">-->
@@ -116,9 +130,6 @@
 <!--    </ul>-->
 <!--</nav>-->
 <div th:fragment="footer">
-    <script th:src="@{//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js}"></script>
-    <script src="/js/customFileStack.js"></script>
-<!--    <script src="/js/keys.js"></script>-->
     <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
     <script th:src="@{/js/jpopper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
@@ -126,3 +137,324 @@
 </div>
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">-->
+<!--<head th:fragment="head">-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+<!--&lt;!&ndash;    <link th:href='@{http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900}' rel='stylesheet' type='text/css'>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="icon" th:href="@{/images/favicon.png}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link th:href="@{/css/app-blue.css}" rel="stylesheet" type="text/css"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>&ndash;&gt;-->
+
+<!--    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/css/style.css}" rel="stylesheet">-->
+
+<!--    <title th:text="${pageTitle}"></title>-->
+<!--    -->
+<!--    &lt;!&ndash; include stylesheets, etc here &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav th:fragment="navbar" class="navbar navbar-expand-sm navbar-light bg-light mb-3">-->
+<!--    <ul class="collapse navbar-collapse justify-content-between" id="navbarNav">-->
+<!--        <ul class="navbar-nav">-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/">Home</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/products/all">All Products</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/products/t-shirts">T-Shirts</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/products/hoodies">Hoodies</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/products/hats">Hats</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/users/profile">Profile</a>-->
+<!--            </li>-->
+<!--            <form method="post" action="/products/search" class="form-inline my-2 my-lg-0">-->
+<!--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"-->
+<!--                       name="keyword">-->
+<!--                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>-->
+<!--                <div class="dropdown">-->
+<!--                    <button class="btn btn-secondary dropdown-toggle ml-2" type="button" id="dropdownMenuButton"-->
+<!--                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Category select-->
+<!--                    </button>-->
+<!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Mad'}">Mad</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Froggy'}">Froggy</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Funny'}">Funny</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Sad'}">Sad</a>-->
+<!--                        <a class="dropdown-item" th:href="@{'/products/display=Scary'}">Scary</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </ul>-->
+
+<!--&lt;!&ndash;            <div class="navbar navbar-right">&ndash;&gt;-->
+<!--        <ul class="navbar-nav">-->
+
+<!--            <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                <form th:action="@{/cart}" th:method="get">-->
+<!--                    <button class="btn-link btn text-white btn-secondary">Go to cart</button>-->
+<!--                </form>-->
+<!--            </li>-->
+<!--            <li class="nav-item"sec:authorize="isAnonymous()">-->
+<!--                <form th:action="@{/register}" th:method="get">-->
+<!--                    <button class="btn-link btn text-white btn-secondary">Register</button>-->
+<!--                </form>-->
+<!--            </li>-->
+<!--            <li class="nav-item"sec:authorize="isAnonymous()">-->
+<!--                <form th:action="@{/login}" th:method="get">-->
+<!--                    <button class="btn-link btn text-white btn-secondary">Login</button>-->
+<!--                </form>-->
+<!--            </li>-->
+
+<!--&lt;!&ndash;<nav th:fragment="navbar" class="navbar navbar-expand-sm navbar-light bg-light mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;    <ul class="collapse navbar-collapse justify-content-between" id="navbarNav">&ndash;&gt;-->
+<!--&lt;!&ndash;        <ul class="navbar-nav">&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="nav-link" href="/">Home</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="nav-link" href="/products/all">Collection</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <a class="nav-link" href="/users/profile">Profile</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="nav-link" href="/products/productInventory">Inventory page</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <form method="post" action="/products/search" class="form-inline my-2 my-lg-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"&ndash;&gt;-->
+<!--&lt;!&ndash;                       name="keyword">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="input-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="input-group-prepend">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="input-group-text bg-light" style="border: none">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <input type="radio" name="choice" value="name" checked>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span class="ml-1">Name Search</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="input-group-text bg-light" style="border:none">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <input type="radio" name="choice" value="category">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span class="ml-1">Category Search</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </form>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <ul class="navbar-nav">&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item" sec:authorize="isAuthenticated()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{/cart}" th:method="get">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button class="btn-link btn text-white btn-secondary">Go to cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item"sec:authorize="isAnonymous()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{/register}" th:method="get">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button class="btn-link btn text-white btn-secondary">Register</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item"sec:authorize="isAnonymous()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{/login}" th:method="get">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button class="btn-link btn text-white btn-secondary">Login</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <li class="nav-item" sec:authorize="isAuthenticated()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{/logout}" th:method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button class="btn-link btn text-white btn-secondary">Logout</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;</nav>&ndash;&gt;-->
+
+<!--&lt;!&ndash;NEW NAVBAR&ndash;&gt;-->
+<!--<div th:fragment="navbar" class="container mt-4">-->
+<!--    <div class="wrapper">-->
+<!--        <nav class="navbar navbar-default navbar-fixed-top navbar-transparent" id="navbar">-->
+<!--            <div class="navbar-header">-->
+<!--                <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#menu"-->
+<!--                        aria-expanded="false">-->
+<!--                    <span class="sr-only">Toggle navigation</span>-->
+<!--                    <span class="icon-bar"></span>-->
+<!--                    <span class="icon-bar"></span>-->
+<!--                    <span class="icon-bar"></span>-->
+<!--                </button>-->
+<!--                <a href="/" class="navbar-brand">Meme Tees</a>-->
+<!--            </div>-->
+<!--            <div class="collapse navbar-collapse pull-right" id="menu">-->
+<!--                <ul class="nav navbar-nav">-->
+<!--&lt;!&ndash;                    <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="/"><i class="fa fa-home"></i>Home</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                    <li>-->
+<!--                        <form method="post" action="/products/search" class="form-inline my-2 my-lg-0">-->
+<!--                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"-->
+<!--                                   name="keyword">-->
+<!--                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--                            <div class="input-group">-->
+<!--                                <div class="input-group-prepend">-->
+<!--                                    <div class="input-group-text bg-light" style="border: none">-->
+<!--                                        <input type="radio" name="choice" value="name" checked>-->
+<!--                                        <span class="ml-1">Name Search</span>-->
+<!--                                    </div>-->
+<!--                                    <div class="input-group-text bg-light" style="border:none">-->
+<!--                                        <input type="radio" name="choice" value="category">-->
+<!--                                        <span class="ml-1">Category Search</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="/products/productInventory">Product Inventory</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item"sec:authorize="isAnonymous()">-->
+<!--                        <form th:action="@{/register}" th:method="get">-->
+<!--                            <button class="btn-link btn text-white btn-secondary">Register</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item"sec:authorize="isAnonymous()">-->
+<!--                        <form th:action="@{/login}" th:method="get">-->
+<!--                            <button class="btn-link btn text-white btn-secondary">Login</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+
+<!--                        <a class="nav-link" href="/users/profile">Profile</a>-->
+
+<<<<<<< HEAD
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                        <form th:action="@{/logout}" th:method="post">-->
+<!--                            <button class="btn-link btn text-white btn-secondary">Logout</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                    <li sec:authorize="isAuthenticated()">-->
+<!--                        <form th:action="@{/cart}" th:method="get">-->
+<!--                            <i class="fa fa-cart-plus"></i><button class="btn-link btn text-white btn-secondary">Go to cart</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                </ul>-->
+
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;FOOTER&ndash;&gt;-->
+<!--    <footer id="footer" th:fragment="footer">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-sm-4">-->
+<!--                    <h4>Our conditions</h4>-->
+<!--                    <div class="justify">-->
+<!--                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget justo tincidunt,-->
+<!--                        sollicitudin dolor eget, facilisis tortor.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-sm-4">-->
+<!--                    <h4>Latest news</h4>-->
+<!--                    <blockquote>-->
+<!--                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
+<!--                    </blockquote>-->
+<!--                </div>-->
+<!--                <div class="col-sm-4 social-network">-->
+<!--                    <h4>Social Network</h4>-->
+<!--                    <div class="row margin-top-20">-->
+<!--                        <div class="col-sm-12">-->
+<!--                            <a href="#">-->
+<!--                                <i class="fa fa-github-square fa-2x blue-fb pull-left"></i>-->
+<!--                                <div>-->
+<!--                                    Look us up on github!-->
+<!--                                </div>-->
+<!--                                <div class="clearfix"></div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row margin-top-10">-->
+<!--                        <div class="col-sm-12">-->
+<!--                            <a href="#">-->
+<!--                                <i class="fa fa-linkedin-square fa-2x blue-tt pull-left"></i>-->
+<!--                                <div>-->
+<!--                                    Connect with us on Linkedin!-->
+<!--                                </div>-->
+<!--                                <div class="clearfix"></div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <hr/>-->
+<!--            <div class="row line-50">-->
+<!--                <div class="col-sm-8">-->
+<!--                    <nav class="navbar navbar-default navbar-transparent">-->
+<!--                        <div class="container-fluid">-->
+<!--                            <div class="collapse navbar-collapse">-->
+<!--                                <ul class="nav navbar-nav">-->
+<!--                                    <li>-->
+<!--                                        <a href="index.html">Home</a>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <a href="#">-->
+<!--                                            Account-->
+<!--                                        </a>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <a href="#">-->
+<!--                                            Favorites-->
+<!--                                        </a>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <a href="#">-->
+<!--                                            Cart-->
+<!--                                        </a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </nav>-->
+<!--                </div>-->
+<!--                <div class="col-sm-4 text-right">-->
+<!--                    <strong>-->
+<!--                        Meme Tees-->
+<!--                    </strong>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--    <script th:src="@{//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js}"></script>-->
+<!--    <script src="/js/customFileStack.js"></script>-->
+<!--&lt;!&ndash;    <script src="/js/keys.js"></script>&ndash;&gt;-->
+<!--    <script th:src="@{/js/jquery-3.5.1.min.js}"></script>-->
+<!--    <script th:src="@{/js/jpopper.min.js}"></script>-->
+<!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--    <script th:src="@{/js/custom.js}"></script>-->
+
+<!--&lt;!&ndash;    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script type="text/javascript" th:src="@{/js/app.js}"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script type="text/javascript" th:src="@{/js/colorSwitcher.js}"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script type="text/javascript" th:src="@{/js/jquery.imagezoom.js}"></script>&ndash;&gt;-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{/js/app.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{/js/colorSwitcher.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{/js/jquery.imagezoom.js}"></script>-->

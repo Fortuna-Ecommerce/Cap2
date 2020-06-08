@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="partials :: head" /></div>
+<body>
+<nav th:replace="partials :: navbar" />
+<div class="container mt-4">
+
+    <h1>Transaction history</h1>
+    <table class="table table-hover transactionTable">
+        <thead>
+        <tr>
+            <th scope="col">Transaciton ID</th>
+            <th scope="col">Created on</th>
+            <th scope="col">Modified on</th>
+            <th scope="col">Stripe Transaction Id</th>
+            <th scope="col">Transaction Status</th>
+            <th scope="col">Transaction Type</th>
+            <th scope="col">User Information</th>
+            <th scope="col">User Shipping Id</th>
+            <th scope="col">User Billing Id</th>
+            <th scope="col">Items Ordered<br>
+            (Id - Name - Quantity)</th>
+            <th scope="col">Final Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.id}"></td>
+            <td th:text="${transaction.created_at}"></td>
+            <td th:text="${transaction.modified_at}"></td>
+            <td th:text="${transaction.stripeId}"></td>
+            <td th:text="${transaction.status}"></td>
+            <td th:text="${transaction.type}"></td>
+            <td>Username: <span th:text="${transaction.username}"></span><br>
+                Email: <span th:text="${transaction.email}"></span><br>
+                Stripe Id: <span th:text="${transaction.stripeCustomer}"></span></td>
+            <td th:text="${transaction.shipping.getId()}"></td>
+            <td th:text="${transaction.billing.getId()}"></td>
+            <td><th:block th:each="product, stats : ${transaction.product}"><span
+                    th:text="${product.getId()}"></span> - <span th:text="${product.getName()}"></span> - <span
+                        th:text="${transaction.quantity.get(stats.index)}"></span><br></th:block></td>
+            <td th:text="${transaction.total}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<footer th:replace="partials :: footer" />
+</body>
+</html>

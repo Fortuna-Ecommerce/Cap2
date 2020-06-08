@@ -9,19 +9,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+
 //import com.capstone.ecommerce.repositories.CategoriesRepository;
 @Controller
-@SessionAttributes("products")
+@SessionAttributes({"products", "category", "user"})
 public class ProductsController {
+
     private ProductRepository productRepo;
     private ProductRepository imagesRepo;
+
     //  CONSTRUCTOR
     public ProductsController(ProductRepository productRepo, ProductRepository imagesRepo) {
         this.productRepo = productRepo;
         this.imagesRepo = imagesRepo;
     }
+
     public void seedProducts() {
         Product product1 = new Product("Rage meme", "5DADE2", "XL", "Shirt", 22.22, "Angry guy melting down",
                 false,
@@ -45,56 +51,130 @@ public class ProductsController {
         products.add(product4);
         products.add(product5);
     }
+
     @GetMapping("/products/all")
     public String productsIndex(Model model) {
         if (model.getAttribute("products") == null) {
             ShoppingCart blankProducts = new ShoppingCart();
             model.addAttribute("products", blankProducts);
         }
+        if (model.getAttribute("category") != null || model.getAttribute("category") != "") {
+            String category = "";
+            model.addAttribute("category", category);
+        }
         List<Product> allProducts = productRepo.findAll();
         model.addAttribute("showProducts", allProducts);
         return "products/products";
     }
-    @GetMapping("products/t-shirts")
+
+    @GetMapping("/products/t-shirts")
+
     public String viewTshirts(Model model) {
-        model.addAttribute("products", productRepo.findAll());
-        return "products/t-shirts";
+        if (model.getAttribute("category") != null || model.getAttribute("category") != "") {
+            String category = "";
+            model.addAttribute("category", category);
+        }
+        List<Product> allProducts = productRepo.findAll();
+        List<Product> chosenProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            if (product.getType().equals("Shirt")) {
+                chosenProducts.add(product);
+            }
+        }
+        model.addAttribute("showProducts", chosenProducts);
+        return "products/products";
     }
-    @GetMapping("products/pullover")
+
+
+    @GetMapping("/products/hoodies")
+
     public String viewPullover(Model model) {
-        model.addAttribute("products", productRepo.findAll());
-        return "products/pullover";
+        if (model.getAttribute("category") != null || model.getAttribute("category") != "") {
+            String category = "";
+            model.addAttribute("category", category);
+        }
+        List<Product> allProducts = productRepo.findAll();
+        List<Product> chosenProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            if (product.getType().equals("Hoodie")) {
+                chosenProducts.add(product);
+            }
+        }
+        model.addAttribute("showProducts", chosenProducts);
+        return "products/products";
     }
-    @GetMapping("products/hats")
+
+
+    @GetMapping("/products/hats")
     public String viewHats(Model model) {
-        model.addAttribute("products", productRepo.findAll());
-        return "products/hats";
+        if (model.getAttribute("category") != null || model.getAttribute("category") != "") {
+            String category = "";
+            model.addAttribute("category", category);
+        }
+        List<Product> allProducts = productRepo.findAll();
+        List<Product> chosenProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            if (product.getType().equals("Hat")) {
+                chosenProducts.add(product);
+            }
+        }
+        model.addAttribute("showProducts", chosenProducts);
+        return "products/products";
     }
-    @GetMapping("products/t-shirts/{id}")
-    public String individualTshirt(Model model, @PathVariable("id") long id) {
-        Product tshirt = productRepo.getOne(id);
-        model.addAttribute("tshirt", tshirt);
-        return "products/t-shirts/show";
-    }
-    @GetMapping("products/pullover/{id}")
-    public String individualPullover(Model model, @PathVariable long id) {
-        Product aProduct = productRepo.getOne(id);
-        model.addAttribute("pullover", aProduct);
-        return "products/pullover/show";
-    }
-    @GetMapping("products/hats/{id}")
-    public String individualHat(Model model, @PathVariable long id) {
-        Product aProduct = productRepo.getOne(id);
-        model.addAttribute("hat", aProduct);
-        return "products/hats/show";
-    }
+
+//    @GetMapping("products/t-shirts/{id}")
+//    public String individualTshirt(Model model, @PathVariable("id") long id) {
+//        Product tshirt = productRepo.getOne(id);
+//        model.addAttribute("tshirt", tshirt);
+//        return "products/t-shirts/show";
+//    }
+//
+//    @GetMapping("products/pullover/{id}")
+//    public String individualPullover(Model model, @PathVariable long id) {
+//        Product aProduct = productRepo.getOne(id);
+//        model.addAttribute("pullover", aProduct);
+//        return "products/pullover/show";
+//    }
+//
+//    @GetMapping("products/hats/{id}")
+//    public String individualHat(Model model, @PathVariable long id) {
+//        Product aProduct = productRepo.getOne(id);
+//        model.addAttribute("hat", aProduct);
+//        return "products/hats/show";
+//    }
+
+
+//    @GetMapping("products/hats")
+//    public String viewHats(Model model) {
+//        model.addAttribute("products", productRepo.findAll());
+//        return "products/hats";
+//    }
+//    @GetMapping("products/t-shirts/{id}")
+//    public String individualTshirt(Model model, @PathVariable("id") long id) {
+//        Product tshirt = productRepo.getOne(id);
+//        model.addAttribute("tshirt", tshirt);
+//        return "products/t-shirts/show";
+//    }
+//    @GetMapping("products/pullover/{id}")
+//    public String individualPullover(Model model, @PathVariable long id) {
+//        Product aProduct = productRepo.getOne(id);
+//        model.addAttribute("pullover", aProduct);
+//        return "products/pullover/show";
+//    }
+//    @GetMapping("products/hats/{id}")
+//    public String individualHat(Model model, @PathVariable long id) {
+//        Product aProduct = productRepo.getOne(id);
+//        model.addAttribute("hat", aProduct);
+//        return "products/hats/show";
+//    }
+
     @GetMapping("/products/{id}")
     public String singleProduct(Model model, @PathVariable long id) {
         double salePrice = 0;
         Product aProduct = productRepo.getOne(id);
         model.addAttribute("product", aProduct);
-        if(aProduct.getSpecial() == true){
-            salePrice = aProduct.getPrice() - (aProduct.getPrice()*0.42);
+        if (aProduct.getSpecial() == true) {
+            salePrice = aProduct.getPrice() - (aProduct.getPrice() * 0.42);
             salePrice = Math.round(salePrice * 100.00) / 100.00;
         }
         model.addAttribute("salePrice", salePrice);
@@ -108,37 +188,51 @@ public class ProductsController {
         model.addAttribute("categories", cNames);
         return "products/product";
     }
+
     @PostMapping("/products/search")
     public String searchProduct(@RequestParam(name = "keyword") String keyword,
-                                @RequestParam(name = "choice") String choice,
+                                Model model,
+                                @ModelAttribute("category") String category,
                                 RedirectAttributes redirectAttributes) {
         List<Product> chosenProducts = new ArrayList<>();
-        int i = 1;
-        if (choice.equals("name")) {
+        if (category.equals("")) {
             chosenProducts = productRepo.findByNameContaining(keyword);
-        } else if (choice.equals("category")) {
-            chosenProducts = productRepo.findByCategoriesContaining(keyword);
-//            for(i = 0; i < chosenProducts.size(); i++){
-//              for(Product product : chosenProducts){
-//                    if(chosenProducts.get(i).getId() == product.getId()){
-//                        chosenProducts.remove(chosenProducts.get(i));
-//                    }
-//                }
-//            }
+        } else {
+            chosenProducts = productRepo.findByCategoriesContainingaAndNameContaining(category, keyword);
         }
         redirectAttributes.addFlashAttribute("showProducts", chosenProducts);
         return "redirect:search";
     }
+
     @GetMapping("/products/search")
     public String searchProductLander(Model model,
-                                      @ModelAttribute   ("showProducts") ArrayList<Product> showProducts){
-        System.out.println(showProducts);
+                                      @ModelAttribute("showProducts") ArrayList<Product> showProducts) {
         model.addAttribute("showProducts", showProducts);
         return "products/products";
     }
+
+    @GetMapping("/products/display={category}")
+    public String categorySearch(Model model, @PathVariable String category) {
+        List<Product> chosenProducts = new ArrayList<>();
+        chosenProducts = productRepo.findByCategoriesContaining(category);
+        LinkedHashSet<Product> theChosen = new LinkedHashSet<>(chosenProducts);
+        chosenProducts.clear();
+        chosenProducts.addAll(theChosen);
+        model.addAttribute("category", category);
+        model.addAttribute("showProducts", chosenProducts);
+
+        return "products/products";
+    }
+
+
+//    public void main(String[] args) {
+//        seedProducts();
+//    }
+
     public void main(String[] args) {
         seedProducts();
     }
+
     //  SEARCH
 //    @PostMapping("/products/search")
 //

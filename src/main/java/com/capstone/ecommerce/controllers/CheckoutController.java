@@ -1,15 +1,10 @@
 package com.capstone.ecommerce.controllers;
 
 
-
 import com.capstone.ecommerce.model.*;
-import com.capstone.ecommerce.repositories.AddressRepository;
-import com.capstone.ecommerce.repositories.ProductRepository;
-import com.capstone.ecommerce.repositories.TransactionRepository;
-import com.capstone.ecommerce.repositories.UserRepository;
+import com.capstone.ecommerce.repositories.*;
 import com.capstone.ecommerce.services.StripeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +24,14 @@ public class CheckoutController{
     private final TransactionRepository transactionRepo;
     private final AddressRepository addressRepo;
     private final ProductRepository productRepo;
+    private final TransactionProductRepository transProdRepo;
 
-    public CheckoutController(UserRepository userRepo, TransactionRepository transactionRepo, AddressRepository addressRepo, ProductRepository productRepo) {
+    public CheckoutController(UserRepository userRepo, TransactionRepository transactionRepo, AddressRepository addressRepo, ProductRepository productRepo, TransactionProductRepository transProdRepo) {
         this.userRepo = userRepo;
         this.transactionRepo = transactionRepo;
         this.addressRepo = addressRepo;
         this.productRepo = productRepo;
+        this.transProdRepo = transProdRepo;
     }
 
     public List<Product> comparison(List<Product> purchasableProducts) {
@@ -52,6 +49,9 @@ public class CheckoutController{
 
     @GetMapping("/baddress")
     public String goToBillAddress(Model model) {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return "home";
+        }
         User shopper = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Address bill_address = this.addressRepo.findByUserAndAddresstype(shopper, "Billing");
         if (bill_address != null) {
@@ -68,6 +68,9 @@ public class CheckoutController{
     @PostMapping("/baddress")
     public String submitBillAddress(Model model,
                                     Address bill_address) {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return "home";
+        }
         User shopper = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        if (bill_address.getId() > 0) {
 //            this.addressRepo.save(bill_address);
@@ -92,6 +95,9 @@ public class CheckoutController{
     public String submitShipAddress(Model model,
                                     Address ship_address,
                                     @ModelAttribute("products") ShoppingCart products) {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return "home";
+        }
         double total = 0.00;
         User shopper = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        if (ship_address.getId() > 0) {
@@ -118,6 +124,9 @@ public class CheckoutController{
 
     @GetMapping("/addresses")
     public String goToAddressEntry(Model model) {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return "home";
+        }
         User shopper = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Address ship_address = this.addressRepo.findByUserAndAddresstype(shopper, "Shipping");
         Address bill_address = this.addressRepo.findByUserAndAddresstype(shopper, "Billing");
@@ -145,6 +154,9 @@ public class CheckoutController{
                                   Address bill_address,
                                   Address ship_address,
                                   @ModelAttribute("products") ShoppingCart products) {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return "home";
+        }
         User shopper = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (bill_address.getId() > 0) {
 
@@ -196,6 +208,9 @@ public class CheckoutController{
                          @ModelAttribute("products") ShoppingCart products,
                          @RequestParam (name= "total") double total,
                         @RequestParam (name = "token") String token) throws Exception {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return "home";
+        }
         List<Product> originals = new ArrayList<>();
         originals = comparison(products);
         boolean isError = false;
@@ -214,24 +229,39 @@ public class CheckoutController{
             this.userRepo.save(testShopper);
         }
         try {
-            System.out.println("test");
             String id = stripeService.chargeExistingCard(testShopper.getStripeToken(), total);
-        System.out.println(id);
             newTransaction.setUser(testShopper);
             newTransaction.setStripeTransID(id);
             newTransaction.setCreated_at(formatter.format(saleDate));
             newTransaction.setTransactionStatus("Paid - Pending shipment");
             newTransaction.setTransactionType("Sale");
-            newTransaction.setProduct(products);
+            newTransaction.setFinalAmount(total);
             this.transactionRepo.save(newTransaction);
+            Transaction thisTransaction = this.transactionRepo.findByStripeTransID(id);
+            System.out.println(thisTransaction);
+            for(Product product: products){
+                System.out.println("Test1");
+                Transactions_Product TransProd = new Transactions_Product();
+                System.out.println("Test2");
+                TransProd.setProduct(product);
+                TransProd.setTransaction(thisTransaction);
+                TransProd.setQuantity(product.getQuantity());
+                System.out.println(TransProd.getTransaction());
+                System.out.println(TransProd.getProduct());
+                System.out.println(TransProd.getQuantity());
+                System.out.println("Test3");
+                this.transProdRepo.save(TransProd);
+                System.out.println("Test4");
+            }
             for(int i = 0; i < originals.size(); i++){
                 originals.get(i).setQuantity(originals.get(i).getQuantity() - products.get(i).getQuantity());
                 this.productRepo.save(originals.get(i));
             }
             products = new ShoppingCart();
             model.addAttribute("products", products);
-            System.out.println("Last line");
         } catch(Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
             isError = true;
             errMessage = "There was a problem with your card - please try again or contact your issuing agency!";
         }
@@ -252,7 +282,9 @@ public class CheckoutController{
 
     @GetMapping("/result")
     private String goToResult(Model model){
-
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return "home";
+        }
         return "purchases/result";
     }
 

@@ -30,9 +30,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
           nativeQuery = true)
   List<Product> findByCategoriesContaining(@Param("keyword") String keyword);
 
+  @Query(value = "SELECT * FROM products JOIN product_categories on products.id = product_categories.product_id JOIN " +
+          "categories c2 on product_categories.category_id = c2.id WHERE c2.category LIKE %:keyword% AND products" +
+          ".name LIKE %:pname%",
+          nativeQuery = true)
+  List<Product> findByCategoriesContainingaAndNameContaining(@Param("keyword") String keyword,
+                                                             @Param("pname") String pname);
+
 }
 
 //  Product findByTitle(String title);
 
+//SEARCH METHOD
+//  @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
+//  List<Product> findByNameContaining(String keyword);
 
 

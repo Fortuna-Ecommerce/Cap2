@@ -1,4 +1,4 @@
-//package com.capstone.ecommerce.model;
+package com.capstone.ecommerce.model;//package com.capstone.ecommerce.model;
 //
 //import javax.persistence.*;
 //

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="partials :: head" /></div>
+
+<body>
+<nav th:replace="partials :: navbar" />
+
+<div class="container mt-4">
+
+    <h1 style="text-align: center">Welcome, Bossperson <span th:text="${user.username}"></span></h1><br>
+    <h2 style="text-align: center">What would you like to do today?</h2><br><br>
+
+    <h1 style="text-align: center"><a href='/products/productInventory'>Check on the Inventory</a></h1>
+    <h1 style="text-align: center"><a href='/transactions'>Check on Transactions</a></h1>
+
+
+</div>
+
+<footer th:replace="partials :: footer" />
+</body>
+</html>

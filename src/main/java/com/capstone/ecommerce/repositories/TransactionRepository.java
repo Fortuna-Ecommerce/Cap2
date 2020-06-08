@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     void save(List<Transaction> transactions);
+    Transaction findByStripeTransID(String id);
 }

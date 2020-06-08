@@ -10,7 +10,7 @@
         <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">T-shirts</th>
+            <th scope="col">Name</th>
             <th scope="col">Color</th>
             <th scope="col">Size</th>
             <th scope="col">Type</th>
@@ -30,10 +30,15 @@
             <td th:text="${product.getType()}"></td>
             <td th:text="${product.getPrice()}"></td>
             <td th:text="${product.getQuantity()}"></td>
+            <td><img th:src="@{/img/${product.getImage()}}"/></td>
+<!--            <td><form th:action="@{/productInventory/delete}" th:method="POST" class="text-right">-->
+<!--                <input type="hidden" th:name="deleteId" th:value="${product.id}">-->
+<!--                <button class="btn btn-primary">Delete</button>-->
+<!--            </form></td>-->
             <td><button th:id="fs-upload" type="button" class="btn btn-primary">Upload</button></td>
             <td><img th:src="@{${product.getImage()}}" alt="image"></td>
-            <td><a th:href="@{'/productsInventory/edit/'+${product.id}}" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Edit</a></td>
-            <td><a th:href="@{'/productsInventory/delete/'+${product.id}}" class="btn btn-primary">Delete</a></td>
+<!--            <td><a th:href="@{'/productsInventory/edit/'+${product.id}}" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Edit</a></td>-->
+<!--            <td><a th:href="@{'/productsInventory/delete/'+${product.id}}" class="btn btn-primary">Delete</a></td>-->
         </tr>
         </tbody>
     </table>

@@ -7,10 +7,211 @@
 
 <div class="container mt-4">
 
-    <h1 style="text-align: center">Welcome to the site!</h1>
+    <h1 style="text-align: center">Welcome to MemeTees!</h1><br>
+    <h1 style="text-align: center">Come buy yourself some fresh memes to wear!</h1><br>
+    <h4 style="text-align: center">(Or dank ones, we won't judge~)</h4><br><br>
+    <h1 style="text-align: center"><a href='/products/all'>See the full catalog!</a></h1>
+
+
 
 </div>
 
 <footer th:replace="partials :: footer" />
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<div th:replace="partials :: head" /></div>-->
+
+<!--<body>-->
+<!--<nav th:replace="partials :: navbar" />-->
+
+<!--<div class="container mt-4">-->
+<!--    <div class="wrapper">-->
+<!--    <div id="heading">-->
+<!--        <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="6000">-->
+<!--            &lt;!&ndash; Indicators &ndash;&gt;-->
+<!--            <ol class="carousel-indicators">-->
+<!--                <li data-target="#carousel" data-slide-to="0" class="active"></li>-->
+<!--                <li data-target="#carousel" data-slide-to="1"></li>-->
+<!--                <li data-target="#carousel" data-slide-to="2"></li>-->
+<!--            </ol>-->
+
+<!--    <h1 style="text-align: center">Welcome to MemeTees!</h1><br>-->
+<!--    <h1 style="text-align: center">Come buy yourself some fresh memes to wear!</h1><br>-->
+<!--    <h4 style="text-align: center">(Or dank ones, we won't judge~)</h4><br><br>-->
+<!--    <h1 style="text-align: center"><a href='/products/all'>See the full catalog!</a></h1>-->
+
+
+<!--=======-->
+<!--            &lt;!&ndash; Wrapper for slides &ndash;&gt;-->
+<!--            <div class="carousel-inner" role="listbox">-->
+<!--                <div class="item active">-->
+<!--                    <img src="/heading/fashion6.png" alt="Fashion">-->
+<!--                    <div class="carousel-caption right">-->
+<!--                        <h3>Material Design</h3>-->
+<!--                        <p>-->
+<!--                            The ultimate<br/>-->
+<!--                            <strong>Shopping</strong>-->
+<!--                            experience-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="item">-->
+<!--                    <img src="/heading/fashion3.png" alt="Fashion">-->
+<!--                    <div class="carousel-caption right">-->
+<!--                        <h3>SUMMER SALES</h3>-->
+<!--                        <p>-->
+<!--                            Stand out styles from your favorites memes-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="item">-->
+<!--                    <img src="/heading/fashion4.png" alt="Fashion">-->
+<!--                    <div class="carousel-caption right">-->
+<!--                        <h3>Crazy sales !</h3>-->
+<!--                        <p>-->
+<!--                            Shop from the best meme brand-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--&gt;>>>>>> origin-->
+
+<!--            &lt;!&ndash; Controls &ndash;&gt;-->
+<!--            <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">-->
+<!--                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
+<!--                <span class="sr-only">Previous</span>-->
+<!--            </a>-->
+<!--            <a class="right carousel-control" href="#carousel" role="button" data-slide="next">-->
+<!--                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
+<!--                <span class="sr-only">Next</span>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="main">-->
+<!--        <ol class="breadcrumb">-->
+<!--            <li><a href="index.html">Home</a></li>-->
+<!--            <li class="active">Shop</li>-->
+<!--        </ol>-->
+<!--        <div class="row">-->
+<!--            <div class="col-sm-3 col-md-2">-->
+<!--                <ul class="nav nav-pills nav-stacked" id="categories" data-spy="affix" data-offset-top="600">-->
+<!--                    <li>-->
+<!--                        <a href="/products/all" data-category="All">All<i class="fa fa-chevron-right pull-right"></i></a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="products/t-shirts" data-category="T-shirt">T-shirts<i class="fa fa-chevron-right pull-right"></i></a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#" data-category="Pullovers">Pullovers<i class="fa fa-chevron-right pull-right"></i></a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#" data-category="Hats">Hats<i class="fa fa-chevron-right pull-right"></i></a>-->
+<!--                    </li>-->
+
+<!--                </ul>-->
+<!--            </div>-->
+
+<!--            <div class="col-sm-9 col-md-10">-->
+<!--            &lt;!&ndash;FEATURED CARDS&ndash;&gt;-->
+<!--                <div class="item-list">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" data-category="t-shirt">-->
+<!--                            <div class="item" th:each="product : ${showProducts}">-->
+<!--                                    <div class="picture">-->
+<!--                                        <img src="/images/products/product7/item1.jpg" alt="item" />-->
+<!--                                    </div>-->
+<!--                                    <div class="category" th:text="${product.type}"></div>-->
+<!--                                        <div class="title"><a th:href="@{'/products/'+${product.id}}"><h3 th:text="${product.name}"></h3></a></div>-->
+<!--                                    <div class="description" th:text="${product.description}"></div>-->
+<!--                                    <div class="actions">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-xs-6">-->
+<!--                                                <div class="price" th:text="${product.price}"></div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-xs-6 text-right">-->
+<!--                                                <i class="fa fa-cart-plus" data-toggle="tooltip" title="Add to cart"></i>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" data-category="Jean">-->
+<!--                            <div class="item" th:each="product : ${showProducts}">-->
+<!--                                <a href="item.html">-->
+<!--                                    <div class="ribon-container">-->
+<!--                                        <div class="ribon">-->
+<!--                                            SALE !-->
+<!--                                        </div>-->
+<!--                                        <div class="ribon-arrow"></div>-->
+<!--                                    </div>-->
+<!--                                    <div class="picture">-->
+<!--                                        <img src="/images/products/product11/item1.jpg" alt="item" />-->
+<!--                                    </div>-->
+<!--                                    <div class="category">Jean</div>-->
+<!--                                    <div class="title">R Edition</div>-->
+<!--                                    <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                                        Mauris efficitur leo vel feugiat ullamcorper. Nulla suscipit a nunc nec congue.-->
+<!--                                        Maecenas dignissim tempus est ut commodo. Suspendisse eget lorem efficitur,-->
+<!--                                        blandit erat et, efficitur quam.-->
+<!--                                    </div>-->
+<!--                                    <div class="actions">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-xs-6">-->
+<!--                                                <div class="price">-->
+<!--                                                    $20.00-->
+<!--                                                    <div class="refund">-->
+<!--                                                        $20.00-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-xs-6 text-right">-->
+<!--                                                <i class="fa fa-cart-plus" data-toggle="tooltip"-->
+<!--                                                   title="Add to cart"></i>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--&lt;!&ndash;END OF CARDS&ndash;&gt;-->
+<!--                <div class="row margin-top-30 text-center">-->
+<!--                    <nav aria-label="Page navigation">-->
+<!--                        <ul class="pagination">-->
+<!--                            <li>-->
+<!--                                <a href="#" aria-label="Previous" class="prev">-->
+<!--                                    <span aria-hidden="true">-->
+<!--                                        <i class="fa fa-chevron-left"></i>-->
+<!--                                    </span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li><a href="/">1</a></li>-->
+<!--                            <li class="active"><a href="#">2</a></li>-->
+<!--                            <li><a href="#">3</a></li>-->
+<!--                            <li><a href="#">4</a></li>-->
+<!--                            <li><a href="#">5</a></li>-->
+<!--                            <li class="disabled">-->
+<!--                                <a href="#" aria-label="Next" class="next">-->
+<!--                                    <span aria-hidden="true">-->
+<!--                                        <i class="fa fa-chevron-right"></i>-->
+<!--                                    </span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<footer th:replace="partials :: footer" />-->
+<!--</body>-->
+<!--</html>-->

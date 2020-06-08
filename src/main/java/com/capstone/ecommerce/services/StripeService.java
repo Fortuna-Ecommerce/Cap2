@@ -6,7 +6,6 @@ import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import com.stripe.param.CustomerCreateParams;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

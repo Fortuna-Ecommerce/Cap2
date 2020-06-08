@@ -1,10 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Edit Profile</title>
+    <div th:replace="partials :: head" /></div>
 </head>
-<body  bgcolor="#f0f5f5">
+
+<body bgcolor="#f0f5f5">
+<nav th:replace="partials :: navbar" />
 <h1>Edit User Profile</h1>
 <div align="right">
     <form action="">
@@ -54,5 +58,6 @@
         <button type="submit" class="btn btn-primary">Sign in</button>
     </form>
 </div>
+<footer th:replace="partials :: footer" />
 </body>
 </html>
