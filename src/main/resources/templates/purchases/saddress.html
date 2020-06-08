@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="partials :: head" /></div>
+<body>
+<nav th:replace="partials :: navbar" />
+<div class="container mt-4">
+
+    <h1 style="text-align: center">Please enter your shipping information</h1>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="yes" id="shipBillAddressCheck" name="shipBillAddressCheck">
+        <label class="form-check-label" for="shipBillAddressCheck" style="size: 20px">
+            My shipping info is the same as my billing info
+        </label>
+    </div>
+    <br>
+
+    <form th:action="@{/saddress}" th:method="post" th:object="${ship_address}">
+        <input type="hidden" th:field="*{addresstype}" id="Saddresstype">
+        <input type="hidden" th:field="*{id}" id="Saddressid"/>
+        <input type="hidden" th:field="*{user}" id="Suser"/>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="Sfirst_name">First name</label>
+                <input type="text" class="form-control" th:field="*{firstname}" id="Sfirst_name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Slast_name">Last Name</label>
+                <input type="text" class="form-control" id="Slast_name" th:field="*{lastname}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Saddress1">Address</label>
+            <input type="text" class="form-control" id="Saddress1" th:field="*{street1}" required>
+        </div>
+        <div class="form-group">
+            <label for="Saddress2">Address 2</label>
+            <input type="text" class="form-control" id="Saddress2" placeholder="Apartment, studio, or floor"
+                   th:field="*{street2}">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="Scity">City</label>
+                <input type="text" class="form-control" id="Scity" th:field="*{city}" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Sstate">State</label>
+                <input type="text" id="Sstate" class="form-control" th:field="*{state}" maxlength="2" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="Szip">Zip</label>
+                <input type="text" class="form-control" id="Szip" th:field="*{zipcode}" maxlength="5" required>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn-link btn text-white btn-secondary">Continue to Checkout</button>
+    </form>
+
+</div>
+<footer th:replace="partials :: footer" />
+</body>
+</html>

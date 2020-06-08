@@ -1,0 +1,44 @@
+
+
+<%-- Show the header with the shopping cart image --%>
+<table border="0">
+    <tr><td><td><h1>Shopping Cart</h1>
+</table>
+
+<%
+// Get the current shopping cart from the user's session.
+ShoppingCart cart = (ShoppingCart) session.getAttribute("ShoppingCart");
+
+// If the user doesn't have a shopping cart yet, create one.
+if (cart == null)
+{
+cart = new ShoppingCart();
+session.setAttribute("ShoppingCart", cart);
+}
+
+// Get the items from the cart.
+Vector products = cart.getProducts();
+
+// If there are no items, tell the user that the cart is empty.
+if (products.size() == 0)
+{
+out.println("<h3>Your shopping cart is empty.</h3>");
+}
+else
+{
+%>
+<%-- Display the header for the shopping cart table --%>
+<br>
+<table border=4>
+    <tr><th>Description</th><th>Quantity</th><th>Price</th></tr>
+       <div th:each="product : ${cartProducts}">
+           <tr><td><a th:href="@{'/products/'+${product.id}}"><p style="font-weight: bold" th:text="${product.name}"></p>
+           </a></td>
+               <td>Quantity: <span th:text="${product.quantity}"></span></td>>
+            <td>Price: <span th:text="${product.price}"></span></td>
+            <form th:action="@{/products/cartdelete}" th:method="get">
+                <button class="btn-link btn text-white btn-secondary">Delete item</button>
+            </form>
+            <br>
+        </div>
+</table>

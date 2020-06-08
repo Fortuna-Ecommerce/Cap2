@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<div th:replace="partials :: head"></div>
+<body>
+<nav th:replace="partials :: navbar"></nav>
+
+<div class="container mt-4">
+    <h1>Welcome to the site!</h1>
+
+    <div sec:authorize="isAuthenticated()">
+
+        <div class="col s12 m6 l4">
+            <div class="profile-info-container center-align">
+                <div class="row space-left">
+                    <div class="col s12">
+                        <h4 class="profile-username" th:text="'Welcome, ' + ${#authentication.name}"></h4>
+                        <!-- edit profile button -->
+                        <!--                        <a href="#editprofile" alt="edit profile">-->
+                        <!--                                        <span class="edit-profile-btn-container">-->
+                        <!--                                            &lt;!&ndash;<i class="edit-profile-btn material-icons">settings</i>&ndash;&gt;-->
+                        <!--                                        </span>-->
+                        <!--                        </a>-->
+                        <p th:text="${#authentication.name}"></p>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="partials :: footer"></footer>
+        </div>
+    </div>
+</body>
+</html>
+

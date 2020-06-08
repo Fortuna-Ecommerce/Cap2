@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:pth="http://www.w3.org/1999/html">
+<div th:replace="partials :: head" /></div>
+<body>
+<nav th:replace="partials :: navbar" />
+<div class="container mt-4">
+
+    <h1 style="font-weight: bold" th:text="${product.name}"> </h1>
+    <h3>Type: <span th:text="${product.type}"></span></h3>
+   <div style="display:inline-block"><h3 style="float:left">Color: <div class="color-box" th:style="'background-color: #'+${product.color}"></div></h3></div>
+    <h3>Size: <span th:text="${product.size}"></span></h3>
+    <h3>Quantity: <span th:text="${product.quantity}" id="amountOnHand"></span></h3>
+    <form th:action="@{/addToCart}" th:method="post">
+    <div th:if="${product.special} == true">
+        <input type="hidden" name="price" th:value="${salePrice}">
+        <h3>On Sale Price (42% off!): <strike><span th:text="${product.price}"></span></strike> <span
+                th:text="${salePrice}"></span></h3></div>
+    <div th:unless="${product.special} == true"><h3>Price: <span th:text="${product.price}"></span></h3>
+        <input type="hidden" name="price" th:value="${product.price}"></div>
+    <h4>Categories: <span th:text="${categories}"></span></h4>
+    <h3>Image: <img th:src="@{'https://cdn.filestackcontent.com/'+${product.getImage()}}" alt="image"></h3>
+
+    <p style="" th:text="${product.description}"> </p>
+    <p style="color:red" id="error" th:text="${error}"></p>
+        <input type="hidden" th:name="cartAddId" th:value="${product.id}">
+        <label>Quantity (Defaults to 1):
+            <input type="text" name="cartAddQuantity" value="1" id="amountOrdered" required>
+        </label>
+        <button class="btn-link btn text-white btn-secondary" id="addProduct">Add this item to your cart</button>
+    </form>
+
+</div>
+
+</div>
+<footer th:replace="partials :: footer" />
+</body>
+</html>

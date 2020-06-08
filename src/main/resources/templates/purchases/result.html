@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="partials :: head" /></div>
+<body>
+<nav th:replace="partials :: navbar" />
+<!--<h3 th:if='${error}' th:text='${error}' style='color: red;'></h3>-->
+<!--<div th:unless='${error}'>-->
+<div style="text-align: center">
+
+
+    <h1 style='color: green'>Success!</h1><br>
+    <h3>Thanks for making your purchase - we'll get the freshest wearable memes to you
+        soon!</h3><br><br><br>
+
+
+
+</div>
+<h1 style="text-align: center"><a href='/products/all'>Return to the products page</a></h1>
+<footer th:replace="partials :: footer" />
+</body>
+</html>

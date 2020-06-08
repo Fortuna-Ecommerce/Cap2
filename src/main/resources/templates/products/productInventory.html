@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="partials :: head" /></div>
+<body>
+<nav th:replace="partials :: navbar" />
+<div class="container mt-4">
+
+    <h1>Product Inventory</h1>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">T-shirts</th>
+            <th scope="col">Color</th>
+            <th scope="col">Size</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Upload</th>
+            <th scope="col">Image</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.getColor()}"></td>
+            <td th:text="${product.getSize()}"></td>
+            <td th:text="${product.getType()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <td th:text="${product.getQuantity()}"></td>
+            <td><button th:id="fs-upload" type="button" class="btn btn-primary">Upload</button></td>
+            <td><img th:src="@{${product.getImage()}}" alt="image"></td>
+            <td><a th:href="@{'/productsInventory/edit/'+${product.id}}" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Edit</a></td>
+            <td><a th:href="@{'/productsInventory/delete/'+${product.id}}" class="btn btn-primary">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+<!--ADD PRODUCT MODAL-->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+       Add a product
+    </button>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form th:method="post" th:action="@{/products/productInventory/add}">
+                        <div class="form-group">
+                            <label for="productName">Product Name</label>
+                            <input type="text" class="form-control" id="productName" aria-describedby="productName" name="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productColor">Product Color</label>
+                            <input type="text" class="form-control" id="productColor" aria-describedby="productColor" name="color">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productSize">Product Size</label>
+                            <input type="text" class="form-control" id="productSize" aria-describedby="productQuantity" name="size">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productType">Product Type</label>
+                            <input type="text" class="form-control" id="productType" aria-describedby="productType" name="type">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productPrice">Product Price</label>
+                            <input type="text" class="form-control" id="productPrice" aria-describedby="productPrice" name="price">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productQuan">Product Quantity</label>
+                            <input type="text" class="form-control" id="productQuan" aria-describedby="productQuan" name="quan">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productImage">Product Image</label>
+                            <input type="text" class="form-control" id="productImage" aria-describedby="productImage" name="image">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<br>
+<!--Edit Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:method="post" th:action="@{/productsInventory/edit/${product.id}}">
+                    <div class="form-group">
+                        <label for="editName">Product Name</label>
+                        <input type="text" class="form-control" id="editName" aria-describedby="editName" name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editColor">Product Color</label>
+                        <input type="text" class="form-control" id="editColor" aria-describedby="editColor" name="color">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editSize">Product Size</label>
+                        <input type="text" class="form-control" id="editSize" aria-describedby="editQuantity" name="size">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editType">Product Type</label>
+                        <input type="text" class="form-control" id="editType" aria-describedby="editType" name="type">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editPrice">Product Price</label>
+                        <input type="text" class="form-control" id="editPrice" aria-describedby="editPrice" name="price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editQuan">Product Quantity</label>
+                        <input type="text" class="form-control" id="editQuan" aria-describedby="editQuan" name="quan">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<footer th:replace="partials :: footer" />
+</body>
+</html>

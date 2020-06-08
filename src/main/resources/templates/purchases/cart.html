@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="partials :: head" /></div>
+
+<body>
+<nav th:replace="partials :: navbar" />
+<div class="container mt-4">
+
+    <h1 style="text-align: center;">Here's what you got so far!</h1>
+    <br>
+
+
+        <div th:if="${products.size()==0}">
+            <h1 style="color: orangered;text-align: center">There's nothing in your cart right now!</h1>
+        </div>
+    <div class="container" style="text-align: center" th:unless="${products.size()==0}">
+        <div th:each="product : ${products}">
+            <a th:href="@{'/products/'+${product.id}}"><h1 style="font-weight: bold" th:text="${product.name}">
+            </h1></a>
+            <h3><label>Quantity: <input type="text" th:value="${product.quantity}"></label></h3>
+            <h3>Price: $<span th:text="${product.price}"></span></h3>
+            <form th:action="@{/deleteFromCart}" th:method="post">
+                <input type="hidden" name="cartDeleteId" th:value="${product.id}">
+                <button class="btn-link btn text-white btn-secondary">Delete item</button>
+            </form>
+            <br>
+        </div>
+<!--        <form th:action="@{/updateCart}" th:method="post">-->
+<!--            <button class="btn-link btn text-white btn-secondary">Update cart</button>-->
+<!--        </form>-->
+
+
+    <h3>Shipping: Just $5.00 for all orders for a limited time!</h3>
+
+    <h2>Total: $<span th:text="${total+5.00}"></span></h2>
+
+    <form th:action="@{/baddress}" th:method="get">
+        <button class="btn-link btn text-white btn-secondary">Start checkout here!</button>
+    </form>
+        <br>
+    </div>
+
+
+    <div style="text-align: center">
+    <form th:action="@{/products/all}" th:method="get">
+        <button class="btn-link btn text-white btn-secondary">Continue shopping</button>
+    </form>
+
+    </div>
+
+
+</div>
+<footer th:replace="partials :: footer" />
+</body>
+</html>

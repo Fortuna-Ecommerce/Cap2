@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <title th:text="${pageTitle}"></title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- include stylesheets, etc here -->
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+    <ul class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products/all">Collection</a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/products/t-shirts">T-Shirts</a>-->
+<!--            </li>-->
+            <li class="nav-item">
+
+                <a class="nav-link" href="/users/profile">Profile</a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products/productInventory">Inventory page</a>
+            </li>
+            <form method="post" action="/products/search" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                       name="keyword">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text bg-light" style="border: none">
+                            <input type="radio" name="choice" value="name" checked>
+                            <span class="ml-1">Name Search</span>
+                        </div>
+                        <div class="input-group-text bg-light" style="border:none">
+                            <input type="radio" name="choice" value="category">
+                            <span class="ml-1">Category Search</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ul>
+
+<!--            <div class="navbar navbar-right">-->
+        <ul class="navbar-nav">
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <form th:action="@{/cart}" th:method="get">
+                    <button class="btn-link btn text-white btn-secondary">Go to cart</button>
+                </form>
+            </li>
+            <li class="nav-item"sec:authorize="isAnonymous()">
+                <form th:action="@{/register}" th:method="get">
+                    <button class="btn-link btn text-white btn-secondary">Register</button>
+                </form>
+            </li>
+            <li class="nav-item"sec:authorize="isAnonymous()">
+                <form th:action="@{/login}" th:method="get">
+                    <button class="btn-link btn text-white btn-secondary">Login</button>
+                </form>
+            </li>
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="btn-link btn text-white btn-secondary">Logout</button>
+                </form>
+            </li>
+
+            <!--         <form method="post" action="/products/search" class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form> -->
+
+    </ul>
+    </ul>
+</nav>
+<!--                <ul class="navbar-nav">-->
+<!--            <li class="nav-item">-->
+<!--                <form th:action="@{/register}" th:method="get">-->
+<!--                    <button class="btn-link btn text-white btn-secondary">Register</button>-->
+<!--                </form>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <form th:action="@{/login}" th:method="get">-->
+<!--                    <button class="btn-link btn text-white btn-secondary">Login</button>-->
+<!--                </form>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <form th:action="@{/logout}" th:method="post">-->
+<!--                    <button class="btn-link btn text-white btn-secondary">Logout</button>-->
+<!--                </form>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <form method="post" action="/products/search" class="form-inline my-2 my-lg-0">-->
+<!--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">-->
+<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--        </form>-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--    </div>-->
+<!--</nav>-->
+<!--<nav th:fragment="navbar">-->
+<!--    &lt;!&ndash; awesome navbar goes here &ndash;&gt;-->
+<!--    <ul class="nav navbar-nav navbar-right">-->
+<!--        <li><a href="/home">Home</a></li>-->
+<!--        <li><a href="/hello/Fortuna">Hello</a></li>-->
+<!--        <li><a href="/join">Join</a></li>-->
+<!--        <li><a href="/welcome">Welcome</a> </li>-->
+<!--    </ul>-->
+<!--</nav>-->
+<div th:fragment="footer">
+    <script th:src="@{//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js}"></script>
+    <script src="/js/customFileStack.js"></script>
+<!--    <script src="/js/keys.js"></script>-->
+    <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/js/jpopper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:pth="http://www.w3.org/1999/html">
+<div th:replace="partials :: head" /></div>
+<body>
+<nav th:replace="partials :: navbar" />
+
+<div class="container mt-4">
+
+    <h1>Search Results</h1>
+    <div th:each="product : ${products}">
+        <a href="#" th:text="${product.name}"></a>
+        <p th:text="${product.description}"></p>
+
+</div>
+<footer th:replace="partials :: footer" />
+</body>
+</html>
